@@ -31,6 +31,7 @@ cp /usr/share/applications/seamonkey.desktop /etc/xdg/autostart
 
 # Activamos la wifi en el arranque
 echo "
+#!/bin/bash
 nmcli radio wifi on
 
 " > /root/StartServices.sh
