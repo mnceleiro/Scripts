@@ -42,7 +42,7 @@ echo "
 Description=Custom Startup Script
  
 [Service]
-ExecStart=/root/StartServices.sh
+ExecStart=bash /root/StartServices.sh
  
 [Install]
 WantedBy=default.target
