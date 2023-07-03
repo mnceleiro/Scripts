@@ -34,22 +34,24 @@ echo "
 #!/bin/bash
 nmcli radio wifi on
 
-" > /etc/init.d/startup-script.sh
+" > /root/startup-script.sh
 # chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
-update-rc.d startup-script.sh defaults 
+#update-rc.d startup-script.sh defaults 
 
 : '
 echo "
 [Unit]
-Description=Custom Startup Script
+Description=Startup Script
  
 [Service]
-ExecStart=bash /root/StartServices.sh
+ExecStart=/bin/bash /root/startup-script.sh
  
 [Install]
-WantedBy=default.target
-" > /etc/systemd/system/StartServices.service
-chmod 644 /etc/systemd/system/StartServices.service
+WantedBy=multi-user.target
+" > /etc/systemd/system/startup-script.service
+chmod 644 /etc/systemd/system/startup-script.service
 
-systemctl enable StartServices.service
+systemctl enable startup-script.service
+systemctl daemon-reload
+systemctl start startup-script.service
 '
