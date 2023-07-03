@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 ## Este script:
 # - Instala SeaMonkey e engadeo ao menu de inicio do sistema.
