@@ -34,8 +34,10 @@ echo "
 #!/bin/bash
 nmcli radio wifi on
 
-" > /home/usuario/.config/autostart/startup-script.sh
-chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
+" > /etc/init.d/startup-script.sh
+# chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
+update-rc.d startup-script.sh defaults 
+
 : '
 echo "
 [Unit]
