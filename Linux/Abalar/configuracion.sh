@@ -34,9 +34,9 @@ echo "
 #!/bin/bash
 nmcli radio wifi on
 
-" > /root/StartServices.sh
-chmod a+x /root/StartServices.sh
-
+" > /home/usuario/.config/autostart/startup-script.sh
+chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
+: '
 echo "
 [Unit]
 Description=Custom Startup Script
@@ -50,3 +50,4 @@ WantedBy=default.target
 chmod 644 /etc/systemd/system/StartServices.service
 
 systemctl enable StartServices.service
+'
