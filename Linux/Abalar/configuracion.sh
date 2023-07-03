@@ -28,3 +28,24 @@ chown -R usuario:usuario /opt/seamonkey
 chmod -R 755 /opt/seamonkey
 echo "Añadido SeaMonkey como navegador web."
 cp /usr/share/applications/seamonkey.desktop /etc/xdg/autostart
+
+# Activamos la wifi en el arranque
+echo "
+nmcli radio wifi on
+
+" > /root/StartServices.sh
+chmod a+x /root/StartServices.sh
+
+echo "
+[Unit]
+Description=Custom Startup Script
+ 
+[Service]
+ExecStart=/root/StartServices.sh
+ 
+[Install]
+WantedBy=default.target
+" > /etc/systemd/system/StartServices.service
+chmod 644 /etc/systemd/system/StartServices.service
+
+systemctl enable StartServices.service
