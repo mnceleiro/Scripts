@@ -38,8 +38,7 @@ nmcli radio wifi on
 # chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
 #update-rc.d startup-script.sh defaults 
 
-echo "
-[Unit]
+echo "[Unit]
 Description=Startup Script
  
 [Service]
@@ -48,7 +47,7 @@ ExecStart=/bin/bash /root/startup-script.sh
 [Install]
 WantedBy=multi-user.target
 " > /etc/systemd/system/startup-script.service
-chmod 644 /etc/systemd/system/startup-script.service
+chmod 755 /etc/systemd/system/startup-script.service
 
 systemctl enable startup-script.service
 systemctl daemon-reload
