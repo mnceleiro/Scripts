@@ -85,5 +85,3 @@ systemctl enable startup-script.service
 systemctl daemon-reload
 systemctl start startup-script.service
 '
-
-This paste expires in <1 hour. Public IP access. Share whatever you see with others in seconds with Context. Terms of ServiceReport this
