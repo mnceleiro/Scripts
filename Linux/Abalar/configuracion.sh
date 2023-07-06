@@ -1,3 +1,5 @@
+
+
 #!/bin/bash
 
 ## Este script está preparado para a versión lixeira (LXDE) do sistema operativo Abalar 11. Fai o seguinte:
@@ -16,24 +18,37 @@ tar -jxvf seamonkey-2.53.16.es-ES.linux-i686.tar.bz2 -C /opt/ > /dev/null
 rm seamonkey-2.53.16.es-ES.linux-i686.tar.bz2
 
 echo "3. Engadindo Seamonkey ao escritorio LXDE do usuario..."
-echo "
-[Desktop Entry]
+
+URL_AV="edu.xunta.gal/centros/iescosmelopez/aulavirtual"
+URL_AV_LOGIN=$URL_AV/login
+DESKTOP_ENTRY="[Desktop Entry]
 Name=Navegador web
 GenericName=Navegador web
 X-GNOME-FullName=SeaMonkey
 Comment=Navegador web
-Exec=/opt/seamonkey/seamonkey -url http://www.edu.xunta.gal/centros/iescosmelopez/aulavirtual/
+Exec=/opt/seamonkey/seamonkey -url %s
 Icon=/opt/seamonkey/chrome/icons/default/default64.png
 Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
-" > /usr/share/applications/seamonkey.desktop
+"
+
+DESKTOP_FILE_MAIN='/usr/share/applications/seamonkey.desktop'
+DESKTOP_FILE_BOOT='/etc/xdg/autostart/seamonkey.desktop'
+
+# Elimino os ficheiros de configuracion do seamonkey no escritorio (se os hai)
+[ -e $DESKTOP_FILE_MAIN ] && rm $DESKTOP_FILE_MAIN
+[ -e $DESKTOP_FILE_BOOT ] && rm $DESKTOP_FILE_BOOT
+
+# Engado seamonkey ao inicio e fago que se execute no arranque do sistema
+printf "$DESKTOP_ENTRY" $URL_AV > $DESKTOP_FILE_MAIN
+printf "$DESKTOP_ENTRY" $URL_AV_LOGIN > $DESKTOP_FILE_BOOT
 
 echo "4. Establecendo usuarios e permisos correctos para o navegador..."
 chown -R usuario:usuario /opt/seamonkey
 chmod -R 755 /opt/seamonkey
 
-cp /usr/share/applications/seamonkey.desktop /etc/xdg/autostart
+#cp /usr/share/applications/seamonkey.desktop /etc/xdg/autostart
 
 echo "5. Activando o arranque da wifi por defecto para o usuario na sesion..."
 # Activamos a wifi no arranque de la sesion
@@ -53,7 +68,7 @@ nmcli radio wifi on
 
 " > /root/startup-script.sh
 # chown usuario:usuario /home/usuario/.config/autostart/startup-script.sh
-#update-rc.d startup-script.sh defaults 
+#update-rc.d startup-script.sh defaults
 
 echo "[Unit]
 Description=Startup Script
@@ -70,3 +85,5 @@ systemctl enable startup-script.service
 systemctl daemon-reload
 systemctl start startup-script.service
 '
+
+This paste expires in <1 hour. Public IP access. Share whatever you see with others in seconds with Context. Terms of ServiceReport this
